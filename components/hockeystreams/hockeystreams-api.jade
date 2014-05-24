@@ -3,4 +3,8 @@ extends ../../views/layout
 block content
     div
         form(action='/hockeystreams/ipexception', method='post')
+            input(type='hidden', name='userId', value='#{locals.userId}')
             input(type='submit', value='IP Exception')
+        form(action='/hockeystreams/getstreams', method='post')
+            input(type='hidden', name='userId', value='#{locals.userId}')
+            input(type='submit', value='Get Streams')

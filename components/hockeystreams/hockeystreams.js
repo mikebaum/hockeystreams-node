@@ -3,19 +3,15 @@
  */
 
 var express = require('express');
-
+var actions = require('../hockeystreams/hockeystreams-actions.js');
+var model = new (require('../hockeystreams/hockeystreams_model.js' ))();
 var app = module.exports = express();
 
 app.set( 'views', __dirname );
 
-var actions = require('../hockeystreams/hockeystreams-actions.js');
-
-var model = new (require('../hockeystreams/hockeystreams_model.js' ))();
-var userModel = model.user;
-
-userModel.on( "change:status", function() {
-    console.log( "User model updated: " + userModel.toString() )
-} );
+//userModel.on( "change:status", function() {
+//    console.log( "User model updated: " + userModel.toString() )
+//} );
 
 
 /* Render hockeystreams login page */
@@ -26,20 +22,29 @@ app.get( '/hockeystreams', function( req, res ) {
 /* Login to hockeystreams */
 app.post('/hockeystreams/login', function ( req, res ) {
     actions.login( req.body.username, req.body.password, function( userData ) {
-        userModel.set( userData );
-        //res.send('login successful');
-        res.render( 'hockeystreams-api' );
+        var id = model.addUser( userData );
+        var user = model.getUser( id );
+        res.render( 'hockeystreams-api', { userId: id } );
+
+        console.log( "user login id: " + user );
     } );
 } );
 
 // TODO: the session token should be given to the client
 app.post( '/hockeystreams/ipexception', function( req, res ) {
-    actions.ipException( userModel.get( "token" ),
+    var user = model.getUser( req.body.userId );
+    actions.ipException( user.get( "token" ),
                          function() {
                              console.log( "ip exception generated" )
                          } );
     res.send( "ip exception, boo, ya" );
 } );
 
-module.exports = app;
-
+app.post( '/hockeystreams/getstreams', function( req, res ) {
+    var user = model.getUser( req.body.userId );
+    actions.getStreams( user.get( "token" ), function() {
+        console.log( "get streams finished" );
+    } );
+    //res.end( 'got streams' );
+    res.render( 'hockeystreams-api', { userId: user.id } );
+} );
