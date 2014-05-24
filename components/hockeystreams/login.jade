@@ -1,0 +1,21 @@
+extends ../../views/layout
+
+block content
+    h1(id="title") Welcome to #{title}
+    form(action='/hockeystreams/login', method='post')
+        p: input(type='text', placeholder='Username', name='username')
+        p: input(type='password', placeholder='Password', name='password')
+        p: input(type='submit', value='Login')
+
+    //
+        script(type='text/javascript', src="/socket.io/socket.io.js")
+        script.
+            var socket = io.connect('http://localhost');
+            function login() {
+                socket.emit( 'login', { username: 'mbaum', password: '(0(kR0@(4' } );
+            }
+        h1= title
+        p Welcome to #{title}
+            h1(id="title") Welcome to Jade
+            input(type="button", value="Login", onclick="alert('About to login'); login();")
+
