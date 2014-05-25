@@ -1,10 +1,20 @@
 extends ../../views/layout
 
 block content
+    script(type='text/javascript', src="jquery/dist/jquery.js")
+    //script(type="text/javascript")
+    //    $(document).ready(function(){
+    //    console.log( "dom loaded." )
+    //    });
     div
-        form(action='/hockeystreams/ipexception', method='post')
-            input(type='hidden', name='userId', value='#{locals.userId}')
-            input(type='submit', value='IP Exception')
-        form(action='/hockeystreams/getstreams', method='post')
-            input(type='hidden', name='userId', value='#{locals.userId}')
-            input(type='submit', value='Get Streams')
+        button#ipException(class="btn").
+            IP Exception
+        button#getStreams(class="btn").
+            Get Streams
+
+        //form(action='/hockeystreams/ipexception', method='post')
+        //    input(type='hidden', name='userId', value='#{locals.userId}')
+        //    input(type='submit', value='IP Exception')
+        //form(action='/hockeystreams/getstreams', method='post')
+        //    input(type='hidden', name='userId', value='#{locals.userId}')
+        //    input(type='submit', value='Get Streams')

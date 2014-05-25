@@ -7,7 +7,9 @@ var actions = require('../hockeystreams/hockeystreams-actions.js');
 var model = new (require('../hockeystreams/hockeystreams_model.js' ))();
 var app = module.exports = express();
 
+app.use( express.static('../../node_modules') );
 app.set( 'views', __dirname );
+app.set( 'view engine', 'jade' );
 
 //userModel.on( "change:status", function() {
 //    console.log( "User model updated: " + userModel.toString() )
@@ -34,9 +36,7 @@ app.post('/hockeystreams/login', function ( req, res ) {
 app.post( '/hockeystreams/ipexception', function( req, res ) {
     var user = model.getUser( req.body.userId );
     actions.ipException( user.get( "token" ),
-                         function() {
-                             console.log( "ip exception generated" )
-                         } );
+                         function() { console.log( "ip exception generated" ) } );
     res.send( "ip exception, boo, ya" );
 } );
 
