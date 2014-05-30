@@ -1,20 +1,15 @@
 extends ../../views/layout
 
-block content
-    script(type='text/javascript', src="jquery/dist/jquery.js")
-    //script(type="text/javascript")
-    //    $(document).ready(function(){
-    //    console.log( "dom loaded." )
-    //    });
-    div
-        button#ipException(class="btn").
-            IP Exception
-        button#getStreams(class="btn").
-            Get Streams
+block head
+    script(src='hockeystreams_client.js')
 
-        //form(action='/hockeystreams/ipexception', method='post')
-        //    input(type='hidden', name='userId', value='#{locals.userId}')
-        //    input(type='submit', value='IP Exception')
-        //form(action='/hockeystreams/getstreams', method='post')
-        //    input(type='hidden', name='userId', value='#{locals.userId}')
-        //    input(type='submit', value='Get Streams')
+block content
+    div
+        button#ipException(
+            class="btn"
+            onclick="javascript:generateIpException('#{locals.ipExceptionUrl}', '#{locals.userId}' )" ).
+            IP Exception
+        button#getStreams(
+            class="btn"
+            onclick="javascript:getStreams('#{locals.getStreamsUrl}', '#{locals.userId}' )" ).
+            Get Streams

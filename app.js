@@ -8,7 +8,7 @@ var http = require('http');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var hockeystreams = require('./components/hockeystreams/hockeystreams');
+var hockeystreams = require('./components/hockeystreams/hockeystreams_app');
 var $ = require('jquery');
 
 var app = express();
@@ -24,7 +24,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'node_modeules')));
+app.use(express.static(path.join(__dirname, 'node_modules')));
 
 app.use('/', routes);
 app.use('/users', users);
