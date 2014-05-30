@@ -7,7 +7,7 @@ const IP_EXCEPTION_PATH = '/hockeystreams/ipexception';
 const GET_STREAMS_PATH = '/hockeystreams/getstreams';
 
 var express = require('express');
-var actions = require('../hockeystreams/hockeystreams-actions.js');
+var actions = require('../hockeystreams/hockeystreams_actions.js');
 var model = new (require('../hockeystreams/hockeystreams_model.js' ))();
 var app = module.exports = express();
 

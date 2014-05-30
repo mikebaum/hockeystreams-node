@@ -65,7 +65,7 @@ var httpServer = http.createServer(app).listen(app.get('port'), function(){
    console.log('Express serve listening on port ' + app.get('port'));
 });
 
-var hockeystreamsApi = require( './components/hockeystreams/hockeystreams-actions.js' );
+var hockeystreamsApi = require( './components/hockeystreams/hockeystreams_actions.js' );
 
 var io = require('socket.io').listen(httpServer);
 io.sockets.on('connection', function (socket) {
