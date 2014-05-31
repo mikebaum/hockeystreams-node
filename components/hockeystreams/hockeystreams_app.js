@@ -9,9 +9,14 @@ const GET_STREAMS_PATH = '/hockeystreams/getstreams';
 var express = require('express');
 var actions = require('../hockeystreams/hockeystreams_actions.js');
 var model = new (require('../hockeystreams/hockeystreams_model.js' ))();
+
+var path = require('path');
 var app = module.exports = express();
 
-app.set( 'views', __dirname );
+var client = path.join(__dirname, 'client');
+app.use(express.static(client));
+
+app.set( 'views', client );
 app.set( 'view engine', 'jade' );
 
 //userModel.on( "change:status", function() {
@@ -29,7 +34,7 @@ app.post( LOGIN_PATH, function ( req, res ) {
         var id = model.addUser( userData );
         var user = model.getUser( id );
         const host = req.get('host');
-        res.render( 'hockeystreams-api', { userId: id,
+        res.render( 'hockeystreams_api', { userId: id,
                                            ipExceptionUrl: 'http://' + host + IP_EXCEPTION_PATH,
                                            getStreamsUrl: 'http://' + host + GET_STREAMS_PATH } );
 

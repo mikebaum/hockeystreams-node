@@ -3,11 +3,11 @@
  */
 
 function generateIpException( url, userId ) {
-    $.post( url, userId );
+    $.post( url, { userId: userId } );
 }
 
 function getStreams( url, userId ) {
-    $.post( url, userId, function( streams ) {
+    $.post( url, { userId: userId }, function( streams ) {
         console.log( "streams: " + JSON.stringify( streams ) );
     })
 }
