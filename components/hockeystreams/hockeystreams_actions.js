@@ -3,8 +3,9 @@
 const LOGIN_ACTION = 'Login';
 const IP_EXCEPTION = 'IPException';
 const GET_STREAMS = 'GetLive';
+const URL = "https://api.hockeystreams.com/";
 
-var request = require( '../../lib/requests.js' );
+const REQUESTER = new (require( '../../lib/requests.js' )).Requester( URL );
 
 /**
  * Logs into hockeystreams
@@ -21,7 +22,7 @@ function login( username, password, resultHandler )
         'key': '1dd7bceb51c69ba4190a5be6d59ee41e'
     };
 
-    request.doPost( LOGIN_ACTION, loginForm, resultHandler );
+    REQUESTER.post( LOGIN_ACTION, loginForm, resultHandler );
 }
 
 /**
@@ -31,12 +32,12 @@ function login( username, password, resultHandler )
  */
 function ipException( token, resultHandler )
 {
-    request.doPost( IP_EXCEPTION, { token: token }, resultHandler );
+    REQUESTER.post( IP_EXCEPTION, { token: token }, resultHandler );
 }
 
 function getStreams( token, resultHandler )
 {
-    request.doGet( GET_STREAMS, { token: token }, resultHandler );
+    REQUESTER.get( GET_STREAMS, { token: token }, resultHandler );
 }
 
 exports.login = login;
